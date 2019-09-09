@@ -43,7 +43,7 @@
 							<addClasspath>true</addClasspath>
 
 							<!--下面必须指定好主类 如com.my.Main -->
-							<mainClass>hxy.sparkjava.demo.App</mainClass>
+							<mainClass>hxy.javalin.JavalinDemo.App</mainClass>
 						</manifest>
 					</archive>
 					<descriptorRefs>
