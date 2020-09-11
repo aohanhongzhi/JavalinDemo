@@ -2,6 +2,7 @@
 ## javalin
 #### 官网：https://javalin.io/
 
+这种没有采用的依赖注入形式的框架，虽然效率高，但是怎么和Spring的控制反转与依赖注入结合呢？
 
 
 ## notes
