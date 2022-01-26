@@ -4,7 +4,9 @@
 
 官网：https://javalin.io/
 
-Javalin是一种 **编程式** 的micro web framework
+Javalin是一种 **编程式** 的micro web framework。javalin的活跃度要么sparkjava更好。
+
+> 其实这种编程式的框架，可以尝试用kotlin来编写下更好。
 
 ### 2022/01/26
 
@@ -16,7 +18,7 @@ Javalin是一种 **编程式** 的micro web framework
 层 | 实现方式
 --- | ---
 Handler（Service逻辑层） | javalin
-DAO | rexdb
+DAO | rexdb (很可惜，这个框架活跃度比较低了)
 
 
 ### 初次想法
