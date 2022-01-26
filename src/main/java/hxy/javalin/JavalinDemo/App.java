@@ -1,24 +1,26 @@
 package hxy.javalin.JavalinDemo;
 
-import hxy.javalin.JavalinDemo.handler.UserHandler;
+import hxy.javalin.JavalinDemo.handler.UserGetHandler;
 import io.javalin.Javalin;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Hello world!
- *
  */
-public class App 
-{
-    public static void main( String[] args )
-    {
-        System.out.println("Hello World!" );
-        Javalin app = Javalin.create().start(7000);
-        app.get("/", ctx -> ctx.result("Hello World"));
-        
-        app.get("/hello/:name", ctx -> {
-            ctx.result("Hello: " + ctx.pathParam("name"));
+public class App {
+    private static final Logger log = LoggerFactory.getLogger(App.class);
+
+    public static void main(String[] args) {
+        Javalin app = Javalin.create().start(7070);
+        app.get("/", ctx -> ctx.result("Hello World！--Javalin"));
+
+        app.get("/hello/{name}", ctx -> {
+            String name = ctx.pathParam("name");
+            log.info("name is {}", name);
+            ctx.result("Hello: " + name);
         });
 
-        app.get("/user",new UserHandler());
+        app.get("/user", new UserGetHandler());
     }
 }

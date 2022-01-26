@@ -1,21 +1,41 @@
 # JavalinDemo
-## javalin
-#### 官网：https://javalin.io/
 
-这种没有采用的依赖注入形式的框架，虽然效率高，但是怎么和Spring的控制反转与依赖注入结合呢？此外数据库DAO层怎么结合呢？
+## javalin
+
+官网：https://javalin.io/
+
+Javalin是一种 **编程式** 的micro web framework
+
+### 2022/01/26
+
+* Handler的方法不需要区分 http method。所以这里就是接收参数和处理业务即可。也不需要额外再新建Service层了。可以理解Handler本身就是Service层。这里和
+  tornado有相似之处，也有不同之处。相似在都是一种用Handler的注册形式，不同在于两者注册的时候，tornado没有指定http method，需要再handler里面用方法区分，无疑增加了handler的复杂度
+  ，而javalin在注册时候明确指定handler是啥http method，因此handler可以直接作为Service层来处理任务。Handler里面就可以直接使用rexdb来操作数据库。
+* 这个micro框架就不是用来处理重量级的事情的。适合做个啥报表查询之类的。不需要特别广泛的生态啥的。
+
+层 | 实现方式
+--- | ---
+Handler（Service逻辑层） | javalin
+DAO | rexdb
+
+
+### 初次想法
+
+这种没有采用的依赖注入形式的框架，虽然效率高，~~但是怎么和Spring的控制反转与依赖注入结合呢？~~此外数据库DAO层怎么结合呢？
 
 下面解决方案可以参考
 
-Service层使用静态方法管理，Controller直接调用，但是更加底层的DAO怎么处理？
+~~Service层使用静态方法管理，Controller直接调用，但是更加底层的DAO怎么处理？~~
 
-有一个ORM框架，可以解决这个问题，就是[rexdb](http://db.rex-soft.org/)，也是静态方法直接调用，只是rexdb，相对于mybatis来说可能自己手写sql语句比较多。
+有一个ORM框架，可以解决这个问题，就是 [rexdb](http://db.rex-soft.org)，也是静态方法直接调用，只是rexdb，相对于mybatis来说可能自己手写sql语句比较多。
 
 层 | 实现方式
 --- | ---
 Contoller | javalin
-Service | 静态方法调用即可
-DAO | rexdb 
+~~Service~~ | ~~静态方法调用即可~~
+DAO | rexdb
 
 ## notes
+
 ![](./asset/img/slf4j.png)
 ![](./asset/img/缺少json.png)
