@@ -22,6 +22,11 @@ Javalin是一种 **编程式** 的micro web framework。javalin的活跃度要�
 Handler（Service逻辑层） | javalin
 DAO | rexdb (很可惜，这个框架活跃度比较低了)
 
+### 打包
+
+```shell
+mvn clean package -Dmaven.test.skip=true
+```
 
 ### 初次想法
 
