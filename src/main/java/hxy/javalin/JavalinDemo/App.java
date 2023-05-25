@@ -47,6 +47,8 @@ public class App {
             String characterEncoding = ctx.res().getCharacterEncoding();
             Charset defaultCharset = Charset.defaultCharset();
             log.info("characterEncoding is {} and defaultCharset is {}", characterEncoding, defaultCharset);
+// 乱码原因是字符集解析错误。 https://github.com/javalin/javalin/issues/1899
+            ctx.res().setContentType("text/plain; charset=utf-8");
 
             ctx.result("Hello: " + name);
         });
