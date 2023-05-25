@@ -10,6 +10,12 @@ Javalin是一种 **编程式** 的micro web framework。javalin的活跃度要�
 
 > 其实这种编程式的框架，可以尝试用kotlin来编写下更好。
 
+
+### 2023/05/25
+
+中文乱码
+https://github.com/javalin/javalin/issues/1899
+
 ### 2022/01/26
 
 * Handler的方法不需要区分 http method。所以这里就是接收参数和处理业务即可。也不需要额外再新建Service层了。可以理解Handler本身就是Service层。这里和

@@ -25,6 +25,7 @@ public class App {
 
     public static void main(String[] args) {
         Javalin app = Javalin.create(config -> {
+            config.http.defaultContentType ="text/plain; charset=utf-8"; // 解决 ctx#result 返回中文乱码。
             config.jetty.multipartConfig.maxFileSize(100, SizeUnit.MB); //the maximum individual file size allowed
             config.routing.ignoreTrailingSlashes = true; // treat '/path' and '/path/' as the same path
             config.routing.treatMultipleSlashesAsSingleSlash = true; // treat '/path//subpath' and '/path/subpath' as the same path
@@ -48,7 +49,7 @@ public class App {
             Charset defaultCharset = Charset.defaultCharset();
             log.info("characterEncoding is {} and defaultCharset is {}", characterEncoding, defaultCharset);
 // 乱码原因是字符集解析错误。 https://github.com/javalin/javalin/issues/1899
-            ctx.res().setContentType("text/plain; charset=utf-8");
+            // ctx.res().setContentType("text/plain; charset=utf-8");
 
             ctx.result("Hello: " + name);
         });
