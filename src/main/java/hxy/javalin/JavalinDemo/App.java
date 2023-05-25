@@ -25,21 +25,23 @@ public class App {
 
     public static void main(String[] args) {
         Javalin app = Javalin.create(config -> {
-            config.http.defaultContentType ="text/plain; charset=utf-8"; // 解决 ctx#result 返回中文乱码。
-            config.jetty.multipartConfig.maxFileSize(100, SizeUnit.MB); //the maximum individual file size allowed
+            config.http.defaultContentType = "text/plain; charset=utf-8"; // 解决 ctx#result 返回中文乱码。
+            config.jetty.multipartConfig.maxFileSize(100, SizeUnit.MB); // the maximum individual file size allowed
             config.routing.ignoreTrailingSlashes = true; // treat '/path' and '/path/' as the same path
-            config.routing.treatMultipleSlashesAsSingleSlash = true; // treat '/path//subpath' and '/path/subpath' as the same path
+            config.routing.treatMultipleSlashesAsSingleSlash = true; // treat '/path//subpath' and '/path/subpath' as
+                                                                     // the same path
             config.jsonMapper(new JavalinJackson().updateMapper(mapper -> {
-//                mapper.setSerializationInclusion(JsonInclude.Include.NON_NULL); // null 值不序列化给前端，优化数据传输
+                // mapper.setSerializationInclusion(JsonInclude.Include.NON_NULL); // null
+                // 值不序列化给前端，优化数据传输
             }));
-        }).start("0.0.0.0",7070);
+        }).start("0.0.0.0", 7070);
         app.get("/", ctx -> ctx.result("Hello World！--Javalin"));
 
         app.get("/hello/{name}", ctx -> {
             String name = ctx.pathParam("name");
             log.info("name is {}", name);
 
-//            FIXME : result乱码，但是json不乱码
+            // FIXME : result乱码，但是json不乱码
             Charset charset = ctx.responseCharset();
             log.info("charset is {}", charset);
             String s = ctx.characterEncoding();
@@ -48,7 +50,7 @@ public class App {
             String characterEncoding = ctx.res().getCharacterEncoding();
             Charset defaultCharset = Charset.defaultCharset();
             log.info("characterEncoding is {} and defaultCharset is {}", characterEncoding, defaultCharset);
-// 乱码原因是字符集解析错误。 https://github.com/javalin/javalin/issues/1899
+            // 乱码原因是字符集解析错误。 https://github.com/javalin/javalin/issues/1899
             // ctx.res().setContentType("text/plain; charset=utf-8");
 
             ctx.result("Hello: " + name);
@@ -57,16 +59,14 @@ public class App {
         app.get("/json", ctx -> {
             String name = ctx.queryParamAsClass("name", String.class).getOrDefault("gus"); // validate value
             log.info("name is {}", name);
-//            https://github.com/javalin/javalin/issues/1392
+            // https://github.com/javalin/javalin/issues/1392
             HashMap<String, Object> map = new HashMap<>();
             map.put("name", name);
             map.put("null", null);
             ctx.json(BaseResponse.success(map));
         });
 
-
         app.get("/user", new UserGetHandler());
-
 
         Queue<SseClient> clients = new ConcurrentLinkedQueue<SseClient>();
 
@@ -77,7 +77,8 @@ public class App {
         });
 
         app.error(404, ctx -> {
-            ctx.result("Generic 404 message");
+            String requestURI = ctx.req().getRequestURI();
+            ctx.json(BaseResponse.notFound("path:" + requestURI));
         });
 
         // HTTP exceptions
@@ -95,7 +96,8 @@ public class App {
         app.exception(FileNotFoundException.class, (e, ctx) -> {
             ctx.status(404);
         }).error(404, ctx -> {
-            ctx.result("Generic 404 message");
+            String requestURI = ctx.req().getRequestURI();
+            ctx.result("Generic 404 message FileNotFoundException , current path: " + requestURI);
         });
 
         Javalin.create(cfg -> {

@@ -44,4 +44,7 @@ public class BaseResponse<T> {
     public static <T> BaseResponse success(T data) {
         return new BaseResponse(200, "success", data);
     }
+    public static <T> BaseResponse notFound(T data) {
+        return new BaseResponse(404, "not found", data);
+    }
 }
