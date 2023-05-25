@@ -1,10 +1,10 @@
-GET localhost:7070/user?id=11
+GET http://localhost:7070/user?id=11
 
 ### json response
 GET http://localhost:7070/json
 
 ###
-GET http://localhost:7070/json?name=ok
+GET http://localhost:7070/json?name=中文
 
 ###
 GET http://localhost:7070/sse
