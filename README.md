@@ -8,6 +8,9 @@ https://github.com/javalin/javalin
 
 Javalin是一种 **编程式** 的micro web framework。javalin的活跃度要比[sparkjava](https://github.com/perwendel/spark)更好。但是[sparkjava](https://github.com/perwendel/spark)的github star数更多。
 
+[SparkJava and Javalin comparison](https://javalin.io/comparisons/sparkjava)
+
+
 > 其实这种编程式的框架，可以尝试用kotlin来编写下更好。
 
 
