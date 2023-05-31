@@ -13,6 +13,16 @@ Javalin是一种 **编程式** 的micro web framework。javalin的活跃度要�
 
 > 其实这种编程式的框架，可以尝试用kotlin来编写下更好。
 
+### 2023/05/31
+
+Jdk17支持 rexdb
+
+jvm参数
+```shell
+--add-opens java.base/java.lang=ALL-UNNAMED --add-opens java.base/java.lang.reflect=ALL-UNNAMED 
+```
+
+https://blog.csdn.net/qq_41611125/article/details/126635762
 
 ### 2023/05/25
 

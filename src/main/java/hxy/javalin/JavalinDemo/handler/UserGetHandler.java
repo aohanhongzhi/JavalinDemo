@@ -17,6 +17,7 @@ import java.util.Map;
  * 这里的方法不需要区分 http method。所以这里就是接收参数和处理业务即可。不需要再新建Service层了。
  * 这个micro框架就不是用来处理重量级的事情的。适合做个啥报表查询之类的。
  */
+@Deprecated
 public class UserGetHandler implements Handler {
 
     Logger logger = LoggerFactory.getLogger(UserGetHandler.class);

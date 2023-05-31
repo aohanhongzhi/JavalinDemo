@@ -1,5 +1,14 @@
 GET http://localhost:7070/user?id=11
 
+###
+POST http://localhost:7070/user
+Content-Type: application/json
+
+{
+  "name": "kk",
+  "age": 12
+}
+
 ### json response
 GET http://localhost:7070/json
 

@@ -18,6 +18,7 @@ import java.util.HashMap;
 import java.util.Queue;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
+import static io.javalin.apibuilder.ApiBuilder.delete;
 import static io.javalin.apibuilder.ApiBuilder.path;
 
 /**
@@ -69,12 +70,14 @@ public class App {
             ctx.json(BaseResponse.success(map));
         });
 
+        // 这个写法太麻烦，不推荐
         app.get("/user", new UserGetHandler());
+        // 下面这种写法很奇特，也不推荐
         app.post("/user", UserController.createUser);
 
         app.routes(() -> {
             path("/user", () -> {
-//                post(UserController::post);
+                delete(UserController::deleteUser);
             });
         });
 
