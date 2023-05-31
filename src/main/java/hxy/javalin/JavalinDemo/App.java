@@ -1,6 +1,7 @@
 package hxy.javalin.JavalinDemo;
 
 import hxy.javalin.JavalinDemo.entity.BaseResponse;
+import hxy.javalin.JavalinDemo.handler.UserController;
 import hxy.javalin.JavalinDemo.handler.UserGetHandler;
 import io.javalin.Javalin;
 import io.javalin.config.SizeUnit;
@@ -17,6 +18,8 @@ import java.util.HashMap;
 import java.util.Queue;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
+import static io.javalin.apibuilder.ApiBuilder.path;
+
 /**
  * Hello world!
  */
@@ -29,7 +32,7 @@ public class App {
             config.jetty.multipartConfig.maxFileSize(100, SizeUnit.MB); // the maximum individual file size allowed
             config.routing.ignoreTrailingSlashes = true; // treat '/path' and '/path/' as the same path
             config.routing.treatMultipleSlashesAsSingleSlash = true; // treat '/path//subpath' and '/path/subpath' as
-                                                                     // the same path
+            // the same path
             config.jsonMapper(new JavalinJackson().updateMapper(mapper -> {
                 // mapper.setSerializationInclusion(JsonInclude.Include.NON_NULL); // null
                 // 值不序列化给前端，优化数据传输
@@ -67,6 +70,13 @@ public class App {
         });
 
         app.get("/user", new UserGetHandler());
+        app.post("/user", UserController.createUser);
+
+        app.routes(() -> {
+            path("/user", () -> {
+//                post(UserController::post);
+            });
+        });
 
         Queue<SseClient> clients = new ConcurrentLinkedQueue<SseClient>();
 
