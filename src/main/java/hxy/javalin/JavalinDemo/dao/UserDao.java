@@ -66,6 +66,12 @@ public class UserDao {
         return 0;
     }
 
+    /**
+     * rexdb在update这块确实还是比较原始，不是很灵活
+     *
+     * @param userModel
+     * @return
+     */
     public static int updateUser(UserModel userModel) {
 
         boolean canUpdate = false;
