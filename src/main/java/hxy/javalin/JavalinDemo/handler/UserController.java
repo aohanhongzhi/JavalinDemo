@@ -6,6 +6,8 @@ import hxy.javalin.JavalinDemo.entity.BaseResponse;
 import io.javalin.http.Context;
 import io.javalin.http.Handler;
 
+import java.util.List;
+
 /**
  * @author eric
  * @description https://www.baeldung.com/javalin-rest-microservices
@@ -37,4 +39,17 @@ public class UserController {
         int i = UserDao.deleteUser(id);
         ctx.json(BaseResponse.success("删除结果" + i));
     }
+
+
+    public static void listUsers(Context ctx) {
+        List<UserModel> users = UserDao.listUsers();
+        ctx.json(BaseResponse.success(users));
+    }
+
+    public static void updateUser(Context ctx) {
+        UserModel userModel = ctx.bodyAsClass(UserModel.class);
+        int i = UserDao.updateUser(userModel);
+        ctx.json(BaseResponse.success("更新结果" + i));
+    }
+
 }

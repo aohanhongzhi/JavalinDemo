@@ -1,5 +1,8 @@
 GET http://localhost:7070/user?id=11
 
+### list
+GET http://localhost:7070/user/list
+
 ###
 POST http://localhost:7070/user
 Content-Type: application/json
@@ -7,6 +10,15 @@ Content-Type: application/json
 {
   "name": "kk",
   "age": 12
+}
+
+###
+PUT http://localhost:7070/user
+Content-Type: application/json
+
+{
+  "id": 3,
+  "age": 132
 }
 
 ### json response

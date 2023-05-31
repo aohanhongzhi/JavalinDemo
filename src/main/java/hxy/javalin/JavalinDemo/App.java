@@ -19,7 +19,9 @@ import java.util.Queue;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
 import static io.javalin.apibuilder.ApiBuilder.delete;
+import static io.javalin.apibuilder.ApiBuilder.get;
 import static io.javalin.apibuilder.ApiBuilder.path;
+import static io.javalin.apibuilder.ApiBuilder.put;
 
 /**
  * Hello world!
@@ -78,6 +80,10 @@ public class App {
         app.routes(() -> {
             path("/user", () -> {
                 delete(UserController::deleteUser);
+                put(UserController::updateUser);
+                path("list", () -> {
+                    get(UserController::listUsers);
+                });
             });
         });
 

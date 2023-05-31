@@ -7,6 +7,8 @@ import org.rex.db.exception.DBException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.List;
+
 /**
  * @author eric
  * @program JavalinDemo
@@ -25,6 +27,17 @@ public class UserDao {
             log.error("数据库插入错误", e);
         }
         return 0;
+    }
+
+    public static List<UserModel> listUsers() {
+        String sql = "select * from user_model";
+        try {
+            List<UserModel> list = DB.getList(sql, UserModel.class);
+            return list;
+        } catch (DBException e) {
+            log.error("数据库查询错误{}", e);
+        }
+        return null;
     }
 
     public static UserModel getUser(Integer id) {
@@ -49,6 +62,44 @@ public class UserDao {
             return update;
         } catch (DBException e) {
             log.error("数据库删除错误{}", e);
+        }
+        return 0;
+    }
+
+    public static int updateUser(UserModel userModel) {
+
+        boolean canUpdate = false;
+
+        String sql = "update user_model ";
+
+//         这里可以用反射用户，但是性能不好
+        boolean dot = false;
+        if (userModel.getName() != null) {
+            sql = sql + " set name = #{name} ";
+            dot = true;
+            canUpdate = true;
+        }
+        if (userModel.getAge() != null) {
+            if (dot) {
+                sql = sql + " , ";
+            } else {
+                sql = sql + " set ";
+            }
+            sql = sql + "  age =  #{age} ";
+            canUpdate = true;
+        }
+
+        if (!canUpdate) {
+            return 0;
+        }
+
+        sql = sql + " where id = #{id} ";
+
+        try {
+            int save = DB.update(sql, userModel);
+            return save;
+        } catch (DBException e) {
+            log.error("数据库插入错误", e);
         }
         return 0;
     }

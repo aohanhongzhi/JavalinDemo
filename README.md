@@ -55,7 +55,7 @@ mvn clean package -Dmaven.test.skip=true
 
 ~~Service层使用静态方法管理，Controller直接调用，但是更加底层的DAO怎么处理？~~
 
-有一个ORM框架，可以解决这个问题，就是 [rexdb](http://db.rex-soft.org)，也是静态方法直接调用，只是rexdb，相对于mybatis来说可能自己手写sql语句比较多。
+有一个ORM框架，可以解决这个问题，就是 [rexdb](https://rexdb.gitee.io/)，也是静态方法直接调用，只是rexdb，相对于mybatis来说可能自己手写sql语句比较多。
 
 层 | 实现方式
 --- | ---

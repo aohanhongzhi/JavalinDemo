@@ -37,10 +37,10 @@ public class UserGetHandler implements Handler {
 
         logger.info("ip:{}查询参数{}", ip, stringListMap);
 
-        String id = context.queryParam("id");
+        Integer id = context.queryParamAsClass("id", Integer.class).get();
         UserModel user1 = null;
         if (id != null) {
-            user1 = UserDao.getUser(Integer.parseInt(id));
+            user1 = UserDao.getUser(id);
         }
         if (user1 != null) {
             context.json(user1);
