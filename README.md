@@ -26,6 +26,11 @@ http://blog.houxiaoyi.cn/#/src/Java/热加载
 ```shell
 mvn clean package -Dmaven.test.skip=true
 ```
+## 运行jar
+
+```shell
+java --add-opens java.base/java.lang=ALL-UNNAMED --add-opens java.base/java.lang.reflect=ALL-UNNAMED -jar target/JavalinDemo-0.0.1-SNAPSHOT-jar-with-dependencies.jar
+```
 
 推荐使用的ORM —— ebean
 
