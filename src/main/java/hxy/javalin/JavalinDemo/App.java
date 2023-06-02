@@ -9,6 +9,8 @@ import io.javalin.http.HttpStatus;
 import io.javalin.http.sse.SseClient;
 import io.javalin.json.JavalinJackson;
 import io.javalin.util.JavalinLogger;
+import org.rex.DB;
+import org.rex.db.exception.DBException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -30,6 +32,14 @@ public class App {
     private static final Logger log = LoggerFactory.getLogger(App.class);
 
     public static void main(String[] args) {
+
+        String sql = "CREATE TABLE if not exists user_model  (ID int(11) NOT NULL, NAME varchar(30) NOT NULL, age int(11))";
+        try {
+            DB.update(sql);
+        } catch (DBException e) {
+            log.error("{}", e.getMessage(), e);
+        }
+
         Javalin app = Javalin.create(config -> {
             config.http.defaultContentType = "text/plain; charset=utf-8"; // 解决 ctx#result 返回中文乱码。
             config.jetty.multipartConfig.maxFileSize(100, SizeUnit.MB); // the maximum individual file size allowed

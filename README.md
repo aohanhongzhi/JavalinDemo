@@ -9,10 +9,23 @@ https://github.com/javalin/javalin
 Javalin是一种 **编程式** 的micro web framework。javalin的活跃度要比[sparkjava](https://github.com/perwendel/spark)
 更好。但是[sparkjava](https://github.com/perwendel/spark)的github star数更多。
 
-[SparkJava and Javalin comparison](https://javalin.io/comparisons/sparkjava)
-
+[SparkJava and Javalin comparison](https://javalin.io/comparisons/sparkjava)：`javalin`就是从`sparkjava`fork出来的。
 
 > 其实这种编程式的框架，可以尝试用kotlin来编写下更好。
+
+**热重启**
+
+http://blog.houxiaoyi.cn/#/src/Java/热加载
+
+```shell
+-XX:+AllowEnhancedClassRedefinition -XX:HotswapAgent=fatjar
+```
+
+### 打包
+
+```shell
+mvn clean package -Dmaven.test.skip=true
+```
 
 推荐使用的ORM —— ebean
 
@@ -52,15 +65,12 @@ https://github.com/javalin/javalin/issues/1899
  Handler（Service逻辑层） | javalin                 
  DAO                 | rexdb (很可惜，这个框架活跃度比较低了) 
 
-### 打包
-
-```shell
-mvn clean package -Dmaven.test.skip=true
-```
 
 ### 初次想法
 
-这种没有采用的依赖注入形式的框架，虽然效率高，~~但是怎么和Spring的控制反转与依赖注入结合呢？~~此外数据库DAO层怎么结合呢？
+这种没有采用的依赖注入形式的框架，虽然效率高，~~但是怎么和Spring的控制反转与依赖注入结合呢~~ 此外数据库DAO层怎么结合呢？
+
+这种简单的极简框架，没必要和Spring结合，直接静态方法即可，或者直接免去Service层，直接Controller+DAO即可。
 
 下面解决方案可以参考
 
