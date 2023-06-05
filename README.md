@@ -40,6 +40,12 @@ https://github.com/ebean-orm/ebean
 
 > 因为rexdb不咋更新了，此外rexdb的原生sql在处理update的时候比较麻烦。
 
+也可以试试
+
+https://github.com/hellokaton/anima
+
+> 主要看update的映射是否简单
+
 ### 2023/05/31
 
 Jdk17支持 rexdb
