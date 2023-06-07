@@ -40,9 +40,24 @@ https://github.com/ebean-orm/ebean
 
 > 因为rexdb不咋更新了，此外rexdb的原生sql在处理update的时候比较麻烦。
 
-也可以试试
+下面这个尝试后，已经太远了，不支持jdk17啦。
 
 https://github.com/hellokaton/anima
+
+```java
+com.hellokaton.anima.exception.AnimaException
+	at com.hellokaton.anima.utils.AnimaUtils.toColumnValues(AnimaUtils.java:104)
+	at com.hellokaton.anima.core.AnimaQuery.save(AnimaQuery.java:1229)
+	at com.hellokaton.anima.Model.save(Model.java:28)
+	at com.hellokaton.anima.Anima.save(Anima.java:395)
+	at hxy.javalin.JavalinDemo.dao.AnimaTest.testA(AnimaTest.java:42)
+Caused by: java.lang.IllegalArgumentException: Class versions V1_5 or less must use F_NEW frames.
+	at org.objectweb.asm.MethodWriter.visitFrame(MethodWriter.java:780)
+	at com.hellokaton.blade.asm.MethodAccess.get(MethodAccess.java:173)
+	at com.hellokaton.anima.utils.AnimaUtils.lambda$invokeMethod$0(AnimaUtils.java:127)
+	at com.hellokaton.anima.utils.AnimaUtils.invokeMethod(AnimaUtils.java:125)
+	at com.hellokaton.anima.utils.AnimaUtils.toColumnValues(AnimaUtils.java:95)
+```
 
 > 主要看update的映射是否简单
 
