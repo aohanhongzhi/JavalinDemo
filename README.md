@@ -1,6 +1,7 @@
-# JavalinDemo
+JavalinDemo
+===
 
-## javalin
+# javalin
 
 官网：https://javalin.io/
 
@@ -13,7 +14,9 @@ Javalin是一种 **编程式** 的micro web framework。javalin的活跃度要�
 
 > 其实这种编程式的框架，可以尝试用kotlin来编写下更好。
 
-**热重启**
+## 开发
+
+### 热重启
 
 http://blog.houxiaoyi.cn/#/src/Java/热加载
 
@@ -21,26 +24,36 @@ http://blog.houxiaoyi.cn/#/src/Java/热加载
 -XX:+AllowEnhancedClassRedefinition -XX:HotswapAgent=fatjar
 ```
 
-### 打包
+### jdk17运行添加VM参数
+
+```shell
+--add-opens java.base/java.lang=ALL-UNNAMED --add-opens java.base/java.lang.reflect=ALL-UNNAMED
+```
+
+## 打包
 
 ```shell
 mvn clean package -Dmaven.test.skip=true
 ```
-## 运行jar
+### 运行jar
 
 ```shell
 java --add-opens java.base/java.lang=ALL-UNNAMED --add-opens java.base/java.lang.reflect=ALL-UNNAMED -jar target/JavalinDemo-0.0.1-SNAPSHOT-jar-with-dependencies.jar
 ```
 
-推荐使用的ORM —— ebean
+# 推荐使用的ORM —— ebean
 
 https://ebean.io/
 
 https://github.com/ebean-orm/ebean
 
+已经使用的项目
+
+https://github.com/aohanhongzhi/JavalinDemo-Kotlin
+
 > 因为rexdb不咋更新了，此外rexdb的原生sql在处理update的时候比较麻烦。
 
-下面这个尝试后，已经太远了，不支持jdk17啦。
+下面这个尝试后，已经太远了，不支持jdk17啦，直接放弃。
 
 https://github.com/hellokaton/anima
 
@@ -98,6 +111,10 @@ https://github.com/javalin/javalin/issues/1899
 
 这种简单的极简框架，没必要和Spring结合，直接静态方法即可，或者直接免去Service层，直接Controller+DAO即可。
 
+如果非要用依赖注入这一套，可以参考Google Guice，不建议使用Spring，还是太重了。
+
+https://javalin.io/tutorials/javalin-java-10-google-guice
+
 下面解决方案可以参考
 
 ~~Service层使用静态方法管理，Controller直接调用，但是更加底层的DAO怎么处理？~~
@@ -107,10 +124,12 @@ https://github.com/javalin/javalin/issues/1899
  层           | 实现方式         
 -------------|--------------
  Contoller   | javalin      
- ~~Service~~ | ~~静态方法调用即可~~ 
+ ~~Service~~ 推荐 [Google Guice](https://javalin.io/tutorials/javalin-java-10-google-guice) | ~~静态方法调用即可~~ 
  DAO         | rexdb        
 
 ## notes
+
+框架提示都非常不错。
 
 ![](./asset/img/slf4j.png)
 ![](./asset/img/缺少json.png)
