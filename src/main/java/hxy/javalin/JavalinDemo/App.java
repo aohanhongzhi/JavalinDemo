@@ -43,13 +43,24 @@ public class App {
         Javalin app = Javalin.create(config -> {
             config.http.defaultContentType = "text/plain; charset=utf-8"; // 解决 ctx#result 返回中文乱码。
             config.jetty.multipartConfig.maxFileSize(100, SizeUnit.MB); // the maximum individual file size allowed
-            config.routing.ignoreTrailingSlashes = true; // treat '/path' and '/path/' as the same path
-            config.routing.treatMultipleSlashesAsSingleSlash = true; // treat '/path//subpath' and '/path/subpath' as
+            config.router.ignoreTrailingSlashes = true; // treat '/path' and '/path/' as the same path
+            config.router.treatMultipleSlashesAsSingleSlash = true; // treat '/path//subpath' and '/path/subpath' as
             // the same path
             config.jsonMapper(new JavalinJackson().updateMapper(mapper -> {
                 // mapper.setSerializationInclusion(JsonInclude.Include.NON_NULL); // null
                 // 值不序列化给前端，优化数据传输
             }));
+            
+            config.router.apiBuilder(() -> {
+                path("/user", () -> {
+                    delete(UserController::deleteUser);
+                    put(UserController::updateUser);
+                    path("list", () -> {
+                        get(UserController::listUsers);
+                    });
+                });
+            });
+           
         }).start("0.0.0.0", 7070);
         app.get("/", ctx -> ctx.result("Hello World！--Javalin"));
 
@@ -87,15 +98,7 @@ public class App {
         // 下面这种写法很奇特，也不推荐
         app.post("/user", UserController.createUser);
 
-        app.routes(() -> {
-            path("/user", () -> {
-                delete(UserController::deleteUser);
-                put(UserController::updateUser);
-                path("list", () -> {
-                    get(UserController::listUsers);
-                });
-            });
-        });
+   
 
         Queue<SseClient> clients = new ConcurrentLinkedQueue<SseClient>();
 
