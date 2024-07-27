@@ -93,6 +93,10 @@ public class App {
             ctx.json(BaseResponse.success(map));
         });
 
+        app.post("/chat-process", ctx -> {
+            ctx.json("{\"role\":\"assistant\",\"id\":\"chatcmpl-7NB3kcBNbNzZ2wHpJPQf26IMsmlAH\",\"parentMessageId\":\"630a9701-e1d5-4c58-adf9-4fb6d7b7bbbc\",\"text\":\"你好！有什么我可以帮助你的吗？问题是啥\",\"delta\":\"？\",\"detail\":{\"id\":\"chatcmpl-7NB3kcBNbNzZ2wHpJPQf26IMsmlAH\",\"object\":\"chat.completion.chunk\",\"created\":1685758412,\"model\":\"gpt-3.5-turbo-0301\",\"choices\":[{\"delta\":{\"content\":\"？\"},\"index\":0,\"finish_reason\":null}]}}");
+        });
+
         // 这个写法太麻烦，不推荐
         app.get("/user", new UserGetHandler());
         // 下面这种写法很奇特，也不推荐

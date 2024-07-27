@@ -32,3 +32,6 @@ GET http://localhost:7070/sse
 
 ###
 GET http://localhost:7070/hello/中文
+
+###
+POST http://localhost:7070/chat-process
