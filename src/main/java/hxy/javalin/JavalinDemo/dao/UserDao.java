@@ -21,6 +21,7 @@ public class UserDao {
     public static int saveUser(UserModel userModel) {
         String sql = "insert into user_model (id,name,age) values (#{id}, #{name}, #{age})";
         try {
+            // FIXME: 由于 rexdb框架没有被维护了，导致代码出错。所以推荐使用 ebean
             int save = DB.update(sql, userModel);
             return save;
         } catch (DBException e) {
